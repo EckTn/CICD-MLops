@@ -12,7 +12,7 @@ eval:
 	echo "## Model Metrics" > report.md
 	cat ./results/metrics.txt >> report.md
 
-	echo '\n## Confusion Matrix Plot' >> report.md
-#	echo '![Confusion Matrix](./results/confusion_matrix.png)' >> report.md
+	echo "\n## Confusion Matrix Plot" >> report.md
+	echo "![Confusion Matrix](./results/confusion_matrix.png)" >> report.md
 
 	cml comment create report.md
