@@ -135,8 +135,8 @@ with open("./results/metrics.txt", "w") as file:
 cm_test = confusion_matrix(y_test, test_predictions)
 matrix = ConfusionMatrixDisplay(confusion_matrix=cm_test, display_labels=[0, 1])
 matrix.plot(cmap="Blues")
-plt.title("ConfusionMatrix.", weight="bold")
-plt.savefig("./results/confusion_matrix.png", dpi=120)
+plt.title("ConfusionMatrix", weight="bold")
+plt.savefig("./results/confusion_matrix.png")
 
 # Saving model
 sio.dump(all_pipe, "model/loan_pipeline.skops")
