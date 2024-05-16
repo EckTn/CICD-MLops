@@ -3,8 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-# import missingno as msno
-from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+from sklearn.model_selection import train_test_split
 
 ## Pipeline
 from sklearn.pipeline import Pipeline , FeatureUnion
@@ -12,7 +11,7 @@ from sklearn_features.transformers import DataFrameSelector
 
 ## preprocessing
 from sklearn.impute import SimpleImputer, KNNImputer
-from sklearn.preprocessing import RobustScaler,OrdinalEncoder #, OneHotEncoder, LabelEncoder
+from sklearn.preprocessing import RobustScaler,OrdinalEncoder
 
 ## imbalanced data
 from imblearn.over_sampling import SMOTE
@@ -22,7 +21,6 @@ from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_sc
 
 ## tree
 from sklearn.tree import DecisionTreeClassifier
-# from sklearn import tree
 
 import skops.io as sio
 
@@ -51,7 +49,9 @@ print("y train shape : ", y_train.shape)
 print("X test shape : ", X_test.shape)
 print("y test shape : ", y_test.shape)
 
-# Data Preprocessing & PipeLine
+#################################
+###Data Preprocessing & PipeLine
+##################################
 
 y_train = y_train.map({"Y":1, "N":0})
 y_test = y_test.map({"Y":1, "N":0})
@@ -90,7 +90,9 @@ oversample = SMOTE() ## Create object
 X_train_Smote, y_train_Smote = oversample.fit_resample(X_train_final, y_train)
 
 
-#  Modeling Using Decision Tree
+##################################
+### Modeling Using Decision Tree
+##################################
 
 
 clf = DecisionTreeClassifier(ccp_alpha=0.01, splitter="best")
@@ -99,7 +101,9 @@ clf.fit(X_train_final, y_train)
 train_predictions = clf.predict(X_train_final)
 test_predictions = clf.predict(X_test_final)
 
-#### `Score Metrics`
+##################################
+#### Score Metrics
+##################################
 train_accuracy = accuracy_score(y_train, train_predictions).round(2)
 test_accuracy = accuracy_score(y_test, test_predictions).round(2)
 print(f"Accuracy of Training Data : {train_accuracy*100} %")
@@ -126,5 +130,5 @@ matrix.plot(cmap="Blues")
 plt.title("ConfusionMatrix.", weight="bold");
 
 
-sio.dump(all_pipe, "Model/loan_pipeline.skops")
-sio.load("Model/loan_pipeline.skops", trusted=True)
+sio.dump(all_pipe, "model/loan_pipeline.skops")
+sio.load("model/loan_pipeline.skops", trusted=True)
