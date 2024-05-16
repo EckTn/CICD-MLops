@@ -4,9 +4,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 # import missingno as msno
-import plotly.express as px
-from plotly.offline import init_notebook_mode
-
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
 
 ## Pipeline
@@ -25,7 +22,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_sc
 
 ## tree
 from sklearn.tree import DecisionTreeClassifier
-from sklearn import tree
+# from sklearn import tree
 
 import skops.io as sio
 

@@ -5,4 +5,7 @@ seaborn~=0.12.2
 plotly~=5.9.0
 skops~=0.9.0
 scikit-learn~=1.2.2
+sklearn_features~=0.0.2
+imbalanced-learn
 black
+pytest
