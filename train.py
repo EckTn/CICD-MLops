@@ -122,13 +122,13 @@ print(f"Recall-Score of Test Data : {test_recall*100} %")
 with open("./results/metrics.txt", "w") as file:
     file.write(
         f"Accuracy of Training Data: {train_accuracy * 100} %\n"
-        f"Accuracy of Test Data : {test_accuracy * 100} %\n"
-        f"F1-Score of Training Data: {train_f1 * 100} %\n"
-        f"F1-Score of Test Data: {test_f1 * 100} %\n"
-        f"Precision-Score of Training Data: {train_precision * 100} %\n"
-        f"Precision-Score of Test Data: {test_precision * 100} %\n"
-        f"Recall-Score of Training Data: {train_recall * 100} %\n"
-        f"Recall-Score of Test Data: {test_recall * 100} %\n"
+        # f"Accuracy of Test Data : {test_accuracy * 100} %\n"
+        # f"F1-Score of Training Data: {train_f1 * 100} %\n"
+        # f"F1-Score of Test Data: {test_f1 * 100} %\n"
+        # f"Precision-Score of Training Data: {train_precision * 100} %\n"
+        # f"Precision-Score of Test Data: {test_precision * 100} %\n"
+        # f"Recall-Score of Training Data: {train_recall * 100} %\n"
+        # f"Recall-Score of Test Data: {test_recall * 100} %\n"
     )
 
 # Confusion matrix
