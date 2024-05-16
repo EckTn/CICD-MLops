@@ -27,7 +27,6 @@ import skops.io as sio
 loan_df = pd.read_csv("data/loan_sanction_train.csv")
 loan_df.drop("Loan_ID", axis=1, inplace=True)
 loan_df = loan_df.sample(frac=1)
-print(loan_df.head(3))
 
 # Feature engineering
 data = loan_df.copy()
@@ -36,7 +35,6 @@ data["TotalIncome"] = data["ApplicantIncome"] + data["CoapplicantIncome"]
 # plt.title("Total Income Distribution before log transform".title())
 # plt.show()
 data["EMI"] = data["LoanAmount"] / data["Loan_Amount_Term"]
-print(data.columns.to_list())
 
 # # Split data
 X = data.drop("Loan_Status", axis=1)
@@ -44,10 +42,6 @@ y = data["Loan_Status"] ## Target
 ## split the data to train and test
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size =0.2, random_state=42, stratify=y)
 
-print("X train shape : ", X_train.shape)
-print("y train shape : ", y_train.shape)
-print("X test shape : ", X_test.shape)
-print("y test shape : ", y_test.shape)
 
 #################################
 ###Data Preprocessing & PipeLine
@@ -124,11 +118,26 @@ test_recall = recall_score(y_test, test_predictions).round(2)
 print(f"Recall-Score of Training Data : {train_recall*100} %")
 print(f"Recall-Score of Test Data : {test_recall*100} %")
 
+# write metrics to file
+with open("./results/metrics.txt", "w") as file:
+    file.write(
+        f"Accuracy of Training Data: {train_accuracy * 100} %\n"
+        f"Accuracy of Test Data : {test_accuracy * 100} %"
+        f"F1-Score of Training Data: {train_f1 * 100} %\n"
+        f"F1-Score of Test Data: {test_f1 * 100} %\n"
+        f"Precision-Score of Training Data: {train_precision * 100} %\n"
+        f"Precision-Score of Test Data: {test_precision * 100} %\n"
+        f"Recall-Score of Training Data: {train_recall * 100} %\n"
+        f"Recall-Score of Test Data: {test_recall * 100} %\n"
+    )
+
+# Confusion matrix
 cm_test = confusion_matrix(y_test, test_predictions)
-matrix = ConfusionMatrixDisplay(confusion_matrix = cm_test, display_labels = [0, 1])
+matrix = ConfusionMatrixDisplay(confusion_matrix=cm_test, display_labels=[0, 1])
 matrix.plot(cmap="Blues")
-plt.title("ConfusionMatrix.", weight="bold");
+plt.title("ConfusionMatrix.", weight="bold")
+plt.savefig("./results/confusion_matrix.png", dpi=120)
 
-
+# Saving model
 sio.dump(all_pipe, "model/loan_pipeline.skops")
 sio.load("model/loan_pipeline.skops", trusted=True)
