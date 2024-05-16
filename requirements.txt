@@ -9,4 +9,3 @@ sklearn_features~=0.0.2
 imbalanced-learn
 black
 pytest
-cmd
