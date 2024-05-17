@@ -35,7 +35,7 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run:
+        run: |
           echo "PR_NUMBER=${{ github.event.pull_request.number }}"
           make eval
       # - name: Update Branch
