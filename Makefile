@@ -8,6 +8,8 @@ format:
 train:
 	python train.py
 
+create
+
 eval:
 	echo "## Model Metrics" > report.md
 	cat ./results/metrics.txt >> report.md
@@ -16,8 +18,8 @@ eval:
 #	echo "![Confusion Matrix](./results/confusion_matrix.png)" >> report.md
 
 	# Debbuging
-	if [ -f "./results/debug.png"]; then \
-  		echo "![Confusion Matrix](./results/debug.png)" >> report.md; \
+	if [ -f "./results/confusion_matrix.png"]; then \
+  		echo "![Confusion Matrix](./results/confusion_matrix.png)" >> report.md; \
   	else \
   	  	echo "Image not found" >> report.md; \
   	fi
