@@ -15,8 +15,8 @@ eval:
 	echo "## Confusion Matrix Plot" >> report.md
 #	echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md
 
-	export IMAGE_URL=$$(cml publish ./results/confusionmatrix.png)
-	echo "Published Image URL: $$IMAGE_URL"
+#	export IMAGE_URL=$$(cml publish ./results/confusionmatrix.png)
+#	echo "Published Image URL: $$IMAGE_URL"
 
 
 	# Debbuging
@@ -31,7 +31,7 @@ eval:
 	cat report.md
 	ls -lh report.md
 
-	cml comment create report.md
+	cml comment create report.md --publish ./results/confusionmatrix.png
 
 #update-branch:
 #	update-branch:
