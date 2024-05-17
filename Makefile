@@ -16,13 +16,13 @@ eval:
 #	echo "![Confusion Matrix](./results/confusion_matrix.png)" >> report.md
 
 	# Debbuging
-	if [ -f "./results/confusion_matrix.png" ]; then \
-	    echo "![Confusion Matrix](./results/confusion_matrix.png)" >> report.md; \
+	if [ -f "./results/test_img.png" ]; then \
+	    echo "![Confusion Matrix](./results/test_img.png)" >> report.md; \
 	else \
 	    echo "Confusion matrix image not found." >> report.md; \
 	fi
 
-	ls -lh ./results/confusion_matrix.png || echo "Confusion matrix image not found."
+#	ls -lh ./results/confusion_matrix.png || echo "Confusion matrix image not found."
 #	cat report.md
 #	ls -lh report.md
 
