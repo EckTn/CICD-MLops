@@ -26,7 +26,8 @@ eval:
 	cat report.md
 	ls -lh report.md
 
-	cml comment create report.md
+	#cml comment create report.md
+	gh pr comment ${{ github.event.pull_request.number }} --body "$(cat report.md)"
 
 #update-branch:
 #	update-branch:
