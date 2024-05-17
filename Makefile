@@ -13,10 +13,10 @@ eval:
 	cat ./results/metrics.txt >> report.md
 	echo "" >> report.md
 	echo "## Confusion Matrix Plot" >> report.md
-	echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md
+#	echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md
 
 	# Debbuging
-	if [ -f "./results/test_img.png" ]; then \
+	if [ -f "./results/confusionmatrix.png" ]; then \
 	    echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md; \
 	else \
 	    echo "Confusion matrix image not found." >> report.md; \

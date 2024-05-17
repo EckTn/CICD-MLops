@@ -132,12 +132,24 @@ with open("./results/metrics.txt", "w") as file:
     )
 
 # Confusion matrix
-cm_test = confusion_matrix(y_test, test_predictions)
-matrix = ConfusionMatrixDisplay(confusion_matrix=cm_test, display_labels=[0, 1])
-matrix.plot(cmap="Blues")
-plt.title("ConfusionMatrix", weight="bold")
-plt.savefig("./results/confusionmatrix.png")
-plt.close()
+try:
+    cm_test = confusion_matrix(y_test, test_predictions)
+    matrix = ConfusionMatrixDisplay(confusion_matrix=cm_test, display_labels=[0, 1])
+    matrix.plot(cmap="Blues")
+    plt.title("Confusion Matrix", weight="bold")
+
+    # Save the confusion matrix image
+    image_path = "results/confusionmatrix.png"
+    plt.savefig(image_path)
+    plt.close()
+
+    # Debugging: Confirm image creation
+    if os.path.isfile(image_path):
+        print(f"Confusion matrix image successfully created at {image_path}.")
+    else:
+        print(f"Failed to create confusion matrix image at {image_path}.")
+except Exception as e:
+    print(f"Error during confusion matrix creation: {e}")
 
 # Saving model
 sio.dump(all_pipe, "model/loan_pipeline.skops")
