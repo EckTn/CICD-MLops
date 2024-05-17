@@ -8,25 +8,25 @@ format:
 train:
 	python train.py
 
-#eval:
-#	echo "## Model Metrics" > report.md
-#	cat ./results/metrics.txt >> report.md
-#	echo "" >> report.md
-#	echo "## Confusion Matrix Plot" >> report.md
-##	echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md
-#
-#	# Debbuging
-#	if [ -f "./results/confusionmatrix.png" ]; then \
-#	    echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md; \
-#	else \
-#	    echo "Confusion matrix image not found." >> report.md; \
-#	fi
-#
-#	ls -lh ./results/confusionmatrix.png || echo "Confusion matrix image not found."
-#	cat report.md
-#	ls -lh report.md
-#
-#	cml comment create report.md
+eval:
+	echo "## Model Metrics" > report.md
+	cat ./results/metrics.txt >> report.md
+	echo "" >> report.md
+	echo "## Confusion Matrix Plot" >> report.md
+#	echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md
+
+	# Debbuging
+	if [ -f "./results/confusionmatrix.png" ]; then \
+	    echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md; \
+	else \
+	    echo "Confusion matrix image not found." >> report.md; \
+	fi
+
+	ls -lh ./results/confusionmatrix.png || echo "Confusion matrix image not found."
+	cat report.md
+	ls -lh report.md
+
+	cml comment create report.md
 
 #update-branch:
 #	update-branch:

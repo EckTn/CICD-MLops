@@ -1,8 +1,8 @@
-Accuracy of Training Data: 81.0 %
-Accuracy of Test Data : 82.0 %
+Accuracy of Training Data: 82.0 %
+Accuracy of Test Data : 78.0 %
 F1-Score of Training Data: 88.0 %
-F1-Score of Test Data: 88.0 %
-Precision-Score of Training Data: 79.0 %
-Precision-Score of Test Data: 81.0 %
-Recall-Score of Training Data: 99.0 %
-Recall-Score of Test Data: 96.0 %
+F1-Score of Test Data: 85.0 %
+Precision-Score of Training Data: 80.0 %
+Precision-Score of Test Data: 79.0 %
+Recall-Score of Training Data: 97.0 %
+Recall-Score of Test Data: 93.0 %
