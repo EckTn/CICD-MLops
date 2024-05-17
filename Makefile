@@ -16,13 +16,13 @@ eval:
 #	echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md
 
 	IMAGE_URL=$(cml publish ./results/confusionmatrix.png)
-	echo "Published Image URL: $IMAGE_URL"
+	echo "Published Image URL: $$IMAGE_URL"
 
 
 	# Debbuging
 	if [ -f "./results/confusionmatrix.png" ]; then \
 #	    echo "![](./results/confusionmatrix.png)" >> report.md; \
-	    echo "![Confusion Matrix]($IMAGE_URL)" >> report.md; \
+	    echo "![Confusion Matrix]($$IMAGE_URL)" >> report.md; \
 	else \
 	    echo "Confusion matrix image not found." >> report.md; \
 	fi
