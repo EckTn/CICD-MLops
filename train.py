@@ -140,7 +140,7 @@ try:
 
     # Save the confusion matrix image
     image_path = "./results/confusionmatrix.png"
-    plt.savefig(image_path)
+    plt.savefig(image_path, dpi=60)
     plt.close()
 
     # Debugging: Confirm image creation

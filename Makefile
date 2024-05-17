@@ -17,7 +17,7 @@ eval:
 
 	# Debbuging
 	if [ -f "./results/confusionmatrix.png" ]; then \
-	    echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md; \
+	    echo "![](./results/confusionmatrix.png)" >> report.md; \
 	else \
 	    echo "Confusion matrix image not found." >> report.md; \
 	fi
