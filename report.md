@@ -8,4 +8,4 @@ Recall-Score of Training Data: 98.0 %
 Recall-Score of Test Data: 99.0 %
 
 ## Confusion Matrix Plot
-Image not found
+![Confusion Matrix](./results/confusion_matrix.png)
