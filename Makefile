@@ -15,15 +15,13 @@ eval:
 	echo "## Confusion Matrix Plot" >> report.md
 #	echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md
 
-	# Encoding image to base64
-#	BASE64_IMG=$(base64 -w 0 ./results/confusionmatrix.png)
 	IMAGE_URL=$(cml publish ./results/confusionmatrix.png)
+	echo "Published Image URL: $IMAGE_URL"
 
 
 	# Debbuging
 	if [ -f "./results/confusionmatrix.png" ]; then \
 #	    echo "![](./results/confusionmatrix.png)" >> report.md; \
-#	    echo '<img src="data:image/png;base64,'$BASE64_IMAGE'" alt="Confusion Matrix"/>' >> report.md; \
 	    echo "![Confusion Matrix]($IMAGE_URL)" >> report.md; \
 	else \
 	    echo "Confusion matrix image not found." >> report.md; \
