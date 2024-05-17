@@ -15,7 +15,7 @@ eval:
 	echo "## Confusion Matrix Plot" >> report.md
 #	echo "![Confusion Matrix](./results/confusionmatrix.png)" >> report.md
 
-	IMAGE_URL=$(cml publish ./results/confusionmatrix.png)
+	export IMAGE_URL=$$(cml publish ./results/confusionmatrix.png)
 	echo "Published Image URL: $$IMAGE_URL"
 
 
