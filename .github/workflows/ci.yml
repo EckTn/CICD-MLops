@@ -17,6 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: iterative/setup-cml@v2
+#      - name: install GH CLI
+#        run: sudo apt-get install -y gh
+#      - name: Authenticate GitHub CLI
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run:
+#          echo $GITHUB_TOKEN | gh auth login --with-token
       - name: Install Packages
         run: make install
       - name: Format
@@ -26,7 +33,11 @@ jobs:
       - name: Evaluation
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: make eval
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          echo "PR_NUMBER=${{ github.event.pull_request.number }}"
+          make eval
       # - name: Update Branch
       #   env:
       #     NAME: ${{ secrets.USER_NAME }}
