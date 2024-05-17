@@ -8,8 +8,6 @@ format:
 train:
 	python train.py
 
-create
-
 eval:
 	echo "## Model Metrics" > report.md
 	cat ./results/metrics.txt >> report.md
