@@ -22,7 +22,8 @@ eval:
   	  	echo "Image not found" >> report.md; \
   	fi
 
-	cat report.md
-	ls -lh report.md
+	ls -lh ./results/confusion_matrix.png || echo "Confusion matrix image not found."
+#	cat report.md
+#	ls -lh report.md
 
 	cml comment create report.md
