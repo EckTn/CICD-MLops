@@ -20,21 +20,21 @@ eval:
 
 
 	# Debbuging
-	if [ -f "./results/confusionmatrix.png" ]; then \
-	    echo "![](./results/confusionmatrix.png)" >> report.md; \
+#	if [ -f "./results/confusionmatrix.png" ]; then \
+#	    echo "![](./results/confusionmatrix.png)" >> report.md; \
 #	    echo "![Confusion Matrix]($$IMAGE_URL)" >> report.md; \
-	else \
-	    echo "Confusion matrix image not found." >> report.md; \
-	fi
+#	else \
+#	    echo "Confusion matrix image not found." >> report.md; \
+#	fi
 
-	ls -lh ./results/confusionmatrix.png || echo "Confusion matrix image not found."
-	cat report.md
-	ls -lh report.md
+#	ls -lh ./results/confusionmatrix.png || echo "Confusion matrix image not found."
+#	cat report.md
+#	ls -lh report.md
 
 	cml comment create report.md --publish
-#update-branch:
-#	update-branch:
-#	git config --global user.name $(USER_NAME)
-#	git config --global user.email $(USER_EMAIL)
-#	git commit -am "Update with new results"
-#	git push --force origin HEAD:update
+update-branch:
+	update-branch:
+	git config --global user.name $(USER_NAME)
+	git config --global user.email $(USER_EMAIL)
+	git commit -am "Update with new results"
+	git push --force origin HEAD:update
