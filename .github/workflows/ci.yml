@@ -23,10 +23,10 @@ jobs:
         run: make format
       - name: Train
         run: make train
-      - name: Evaluation
-        env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: make eval
+#      - name: Evaluation
+#        env:
+#          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: make eval
       # - name: Update Branch
       #   env:
       #     NAME: ${{ secrets.USER_NAME }}

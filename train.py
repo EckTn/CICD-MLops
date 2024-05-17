@@ -139,7 +139,7 @@ try:
     plt.title("Confusion Matrix", weight="bold")
 
     # Save the confusion matrix image
-    image_path = "results/confusionmatrix.png"
+    image_path = "./results/confusionmatrix.png"
     plt.savefig(image_path)
     plt.close()
 
