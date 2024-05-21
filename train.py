@@ -14,7 +14,9 @@ from sklearn.impute import SimpleImputer, KNNImputer
 from sklearn.preprocessing import RobustScaler,OrdinalEncoder
 
 ## imbalanced data
+from imblearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
+
 
 ## metrics
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
@@ -31,9 +33,6 @@ loan_df = loan_df.sample(frac=1)
 # Feature engineering
 data = loan_df.copy()
 data["TotalIncome"] = data["ApplicantIncome"] + data["CoapplicantIncome"]
-# sns.kdeplot(data=data, x="TotalIncome", fill=True)
-# plt.title("Total Income Distribution before log transform".title())
-# plt.show()
 data["EMI"] = data["LoanAmount"] / data["Loan_Amount_Term"]
 
 # # Split data
@@ -51,49 +50,36 @@ y_train = y_train.map({"Y":1, "N":0})
 y_test = y_test.map({"Y":1, "N":0})
 Numerical_columns = X.select_dtypes(include="number").columns.to_list()
 Categorical_columns = X.select_dtypes(exclude="number").columns.to_list()
-# print(f"Numerical columns in the data : {Numerical_columns}")
-# print(f"Categorical columns in the data : {Categorical_columns}")
 
-## 1. Numerical
-numerical_pipeline = Pipeline(steps=[
-                    ("selector", DataFrameSelector(Numerical_columns)),
-                    ("impute", KNNImputer(n_neighbors=5)),
-                    ("scaler", RobustScaler())
-                    ])
+# Creating pipelines for numerical and categorical feature processing
+numerical_pipeline = Pipeline([
+    ("selector", DataFrameSelector(Numerical_columns)),
+    ("impute", KNNImputer(n_neighbors=5)),
+    ("scaler", RobustScaler())
+])
 
-## 2. categorical
-category_pipeline = Pipeline(steps=[
-                    ("selector", DataFrameSelector(Categorical_columns)),
-                    ("impute", SimpleImputer(strategy="most_frequent")),
-                    ("encoder", OrdinalEncoder())
-                    ])
+categorical_pipeline = Pipeline([
+    ("selector", DataFrameSelector(Categorical_columns)),
+    ("impute", SimpleImputer(strategy="most_frequent")),
+    ("encoder", OrdinalEncoder())
+])
 
-## 3. Union all together by feature union
-all_pipe = FeatureUnion(transformer_list=[
-             ("num", numerical_pipeline),
-             ("categ", category_pipeline)
-            ])
+# Combining feature processing pipelines
+full_pipeline = Pipeline([
+    ("features", FeatureUnion([
+        ("num", numerical_pipeline),
+        ("categ", categorical_pipeline)
+    ])),
+    ("oversample", SMOTE()),
+    ("classifier", DecisionTreeClassifier(ccp_alpha=0.01))
+])
 
-X_train_final = all_pipe.fit_transform(X_train)
-X_test_final = all_pipe.transform(X_test)
+# Training the model
+full_pipeline.fit(X_train, y_train)
 
-
-# Handle Imbalanced Target
-
-oversample = SMOTE() ## Create object
-X_train_Smote, y_train_Smote = oversample.fit_resample(X_train_final, y_train)
-
-
-##################################
-### Modeling Using Decision Tree
-##################################
-
-
-clf = DecisionTreeClassifier(ccp_alpha=0.01, splitter="best")
-clf.fit(X_train_final, y_train)
-
-train_predictions = clf.predict(X_train_final)
-test_predictions = clf.predict(X_test_final)
+# Making predictions
+train_predictions = full_pipeline.predict(X_train)
+test_predictions = full_pipeline.predict(X_test)
 
 ##################################
 #### Score Metrics
@@ -152,5 +138,5 @@ except Exception as e:
     print(f"Error during confusion matrix creation: {e}")
 
 # Saving model
-sio.dump(all_pipe, "model/loan_pipeline.skops")
+sio.dump(full_pipeline, "model/loan_pipeline.skops")
 sio.load("model/loan_pipeline.skops", trusted=True)
