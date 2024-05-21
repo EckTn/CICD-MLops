@@ -2,7 +2,7 @@ name: CD pipeline
 
 on:
   workflow_run:
-    workflows: ["Continuous Integration"]
+    workflows: ["CI Pipeline"]
     types:
       - completed
 
