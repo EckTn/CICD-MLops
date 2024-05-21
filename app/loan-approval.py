@@ -3,7 +3,7 @@ import gradio as gr
 import skops.io as sio
 
 # Load the trained pipeline
-pipe = sio.load("../model/loan_pipeline.skops", trusted=True)
+pipe = sio.load("./model/loan_pipeline.skops", trusted=True)
 
 def predict_loan(gender, married, dependents, education, self_employed, applicant_income, coapplicant_income, loan_amount, loan_amount_term, credit_history, property_area):
     """
