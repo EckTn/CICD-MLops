@@ -6,12 +6,12 @@ import os
 from sklearn.model_selection import train_test_split
 
 ## Pipeline
-from sklearn.pipeline import Pipeline , FeatureUnion
+from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn_features.transformers import DataFrameSelector
 
 ## preprocessing
 from sklearn.impute import SimpleImputer, KNNImputer
-from sklearn.preprocessing import RobustScaler,OrdinalEncoder
+from sklearn.preprocessing import RobustScaler, OrdinalEncoder
 
 ## imbalanced data
 from imblearn.pipeline import Pipeline
@@ -19,7 +19,14 @@ from imblearn.over_sampling import SMOTE
 
 
 ## metrics
-from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import (
+    f1_score,
+    precision_score,
+    recall_score,
+    accuracy_score,
+    confusion_matrix,
+    ConfusionMatrixDisplay,
+)
 
 ## tree
 from sklearn.tree import DecisionTreeClassifier
@@ -37,42 +44,52 @@ data["EMI"] = data["LoanAmount"] / data["Loan_Amount_Term"]
 
 # # Split data
 X = data.drop("Loan_Status", axis=1)
-y = data["Loan_Status"] ## Target
+y = data["Loan_Status"]  ## Target
 ## split the data to train and test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size =0.2, random_state=42, stratify=y)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
 
 
 #################################
 ###Data Preprocessing & PipeLine
 ##################################
 
-y_train = y_train.map({"Y":1, "N":0})
-y_test = y_test.map({"Y":1, "N":0})
+y_train = y_train.map({"Y": 1, "N": 0})
+y_test = y_test.map({"Y": 1, "N": 0})
 Numerical_columns = X.select_dtypes(include="number").columns.to_list()
 Categorical_columns = X.select_dtypes(exclude="number").columns.to_list()
 
 # Creating pipelines for numerical and categorical feature processing
-numerical_pipeline = Pipeline([
-    ("selector", DataFrameSelector(Numerical_columns)),
-    ("impute", KNNImputer(n_neighbors=5)),
-    ("scaler", RobustScaler())
-])
+numerical_pipeline = Pipeline(
+    [
+        ("selector", DataFrameSelector(Numerical_columns)),
+        ("impute", KNNImputer(n_neighbors=5)),
+        ("scaler", RobustScaler()),
+    ]
+)
 
-categorical_pipeline = Pipeline([
-    ("selector", DataFrameSelector(Categorical_columns)),
-    ("impute", SimpleImputer(strategy="most_frequent")),
-    ("encoder", OrdinalEncoder())
-])
+categorical_pipeline = Pipeline(
+    [
+        ("selector", DataFrameSelector(Categorical_columns)),
+        ("impute", SimpleImputer(strategy="most_frequent")),
+        ("encoder", OrdinalEncoder()),
+    ]
+)
 
 # Combining feature processing pipelines
-full_pipeline = Pipeline([
-    ("features", FeatureUnion([
-        ("num", numerical_pipeline),
-        ("categ", categorical_pipeline)
-    ])),
-    ("oversample", SMOTE()),
-    ("classifier", DecisionTreeClassifier(ccp_alpha=0.01))
-])
+full_pipeline = Pipeline(
+    [
+        (
+            "features",
+            FeatureUnion(
+                [("num", numerical_pipeline), ("categ", categorical_pipeline)]
+            ),
+        ),
+        ("oversample", SMOTE()),
+        ("classifier", DecisionTreeClassifier(ccp_alpha=0.01)),
+    ]
+)
 
 # Training the model
 full_pipeline.fit(X_train, y_train)
